@@ -1,0 +1,27 @@
+{
+  "name": "ziliu",
+  "compatibility_date": "2025-04-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": ".open-next/worker.js",
+  "assets": { "directory": ".open-next/assets" },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ziliu-prod",
+      "database_id": "placeholder-will-be-replaced"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "R2",
+      "bucket_name": "ziliu"
+    }
+  ],
+  "routes": [
+    { "pattern": "ziliu.online/*", "zone_id": "efb9796542a967158b0f7e665d0fb468" },
+    { "pattern": "www.ziliu.online/*", "zone_id": "efb9796542a967158b0f7e665d0fb468" }
+  ],
+  "vars": {
+    "NODE_ENV": "production"
+  }
+}

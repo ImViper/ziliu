@@ -57,7 +57,7 @@ export function UserPlanProvider({ children }: { children: React.ReactNode }) {
 
     try {
       const response = await fetch('/api/auth/user-plan');
-      const data = await response.json();
+      const data: any = await response.json();
       
       if (data.success) {
         setPlanData({
@@ -92,8 +92,8 @@ export function UserPlanProvider({ children }: { children: React.ReactNode }) {
       ]);
       
       setUsageData({
-        totalArticles: articlesData.success ? articlesData.data.total : 0,
-        monthlyImagesUsed: imagesData.success ? imagesData.data.monthlyUsed : 0,
+        totalArticles: (articlesData as any)?.success ? (articlesData as any)?.data?.total : 0,
+        monthlyImagesUsed: (imagesData as any)?.success ? (imagesData as any)?.data?.monthlyUsed : 0,
         usageLoading: false
       });
     } catch (error) {

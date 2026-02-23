@@ -1,17 +1,40 @@
-import { drizzle } from 'drizzle-orm/libsql';
-import { createClient } from '@libsql/client';
+/// <reference types="@cloudflare/workers-types" />
+
+import { drizzle } from 'drizzle-orm/d1';
 import * as schema from './schema';
 
-console.log(process.env.TURSO_DATABASE_URL)
+/**
+ * Get the D1 database binding.
+ * In Cloudflare Workers/Pages runtime, this uses getCloudflareContext().
+ * Returns null during build or when not in CF environment.
+ */
+function getD1(): D1Database | null {
+  try {
+    // @opennextjs/cloudflare injects this
+    const { getCloudflareContext } = require('@opennextjs/cloudflare');
+    const { env } = getCloudflareContext();
+    return env.DB ?? null;
+  } catch {
+    // Not in CF environment (build time, dev, etc.)
+    return null;
+  }
+}
 
-// 创建数据库客户端
-const client = createClient({
-  url: process.env.TURSO_DATABASE_URL || process.env.DATABASE_URL || 'file:./dev.db',
-  authToken: process.env.TURSO_AUTH_TOKEN,
-});
+/**
+ * Get D1 or throw — for use in API routes that require DB access.
+ */
+function requireD1(): D1Database {
+  const d1 = getD1();
+  if (!d1) throw new Error('D1 database not available');
+  return d1;
+}
 
-// 创建Drizzle实例
-export const db = drizzle(client, { schema });
+// Create drizzle instance with D1
+const d1 = getD1();
+export const db = d1 ? drizzle(d1, { schema }) : (null as any);
+
+// Export helper functions
+export { getD1, requireD1 };
 
 // 导出schema以便在其他地方使用
 export * from './schema';
