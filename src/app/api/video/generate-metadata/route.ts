@@ -95,7 +95,7 @@ const METADATA_PROMPTS = {
 
 export async function POST(request: NextRequest) {
   try {
-    const { content, platform, title } = await request.json();
+    const { content, platform, title } = await request.json() as any;
 
     if (!content || !platform) {
       return Response.json({
@@ -191,7 +191,7 @@ ${content}
       throw new Error(`OpenRouter API error: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data: any = await response.json();
     const aiResponse = data.choices[0]?.message?.content?.trim();
 
     if (!aiResponse) {
@@ -251,7 +251,7 @@ async function generateCoverImage(
       throw new Error(`OpenRouter API error: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data: any = await response.json();
     const images = data.choices?.[0]?.message?.images;
     const imageUrl = images?.[0]?.image_url?.url;
 
@@ -452,7 +452,7 @@ function classifyCoverCategory(text: string): CoverCategory {
 
 // 解析AI返回的结构化内容
 function parseAIResponse(response: string, platform: string): any {
-  const lines = response.split('\n').map(line => line.trim()).filter(Boolean);
+  const lines = response.split('\n').map((line: any) => line.trim()).filter(Boolean);
   const metadata: any = {};
   const descriptionLines: string[] = [];
   const tagTokens: string[] = [];
@@ -470,7 +470,7 @@ function parseAIResponse(response: string, platform: string): any {
   const extractTags = (text: string) => {
     const matches = text.match(/[#＃][^\s#＃]+/g);
     if (!matches) return [];
-    return matches.map(tag => tag.replace(/^[#＃]/, '').trim()).filter(Boolean);
+    return matches.map((tag: any) => tag.replace(/^[#＃]/, '').trim()).filter(Boolean);
   };
 
   for (const line of lines) {
@@ -600,7 +600,7 @@ function fallbackMetadataGeneration(content: string, platform: string, originalT
 function extractKeyPoints(content: string, max: number): string[] {
   const sentences = content
     .split(/[。！？.!?]/)
-    .map(s => s.trim())
+    .map((s: any) => s.trim())
     .filter(s => s.length > 12);
   if (sentences.length === 0) return [];
   return sentences.slice(0, max);

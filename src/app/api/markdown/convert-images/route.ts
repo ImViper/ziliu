@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const body = await request.json();
+    const body: any = await request.json();
     const markdown = typeof body?.markdown === 'string' ? body.markdown : '';
 
     if (!markdown.trim()) {

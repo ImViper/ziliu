@@ -156,7 +156,7 @@ export async function PUT(
       return setCorsHeaders(response, request);
     }
 
-    const body = await request.json();
+    const body: any = await request.json();
     const { title, content, status, style } = body;
 
     // 验证文章是否存在且属于当前用户

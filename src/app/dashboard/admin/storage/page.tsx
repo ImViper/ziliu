@@ -43,7 +43,7 @@ export default function StorageManagePage() {
       setError(null);
       
       const response = await fetch(`/api/cleanup-images?days=${days}`);
-      const data = await response.json();
+      const data: any = await response.json();
       
       if (data.success) {
         setStats(data.data);
@@ -75,7 +75,7 @@ export default function StorageManagePage() {
         }),
       });
       
-      const data = await response.json();
+      const data: any = await response.json();
       
       if (data.success) {
         setCleanupResult(data.data);

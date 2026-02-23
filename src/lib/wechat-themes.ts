@@ -108,7 +108,7 @@ export const WECHAT_STYLES: Record<string, ThemeDefinition> = {
       .wechat-content p { font-size: 16px; margin: 20px 0; text-align: left; color: ${COLORS.darkTextSecondary}; letter-spacing: 0.5px; }
       .wechat-content li { letter-spacing: 0.5px; text-align: left; margin-bottom: 12px; }
       .wechat-content li p { text-align: left; margin: 4px 0; }
-      .wechat-content blockquote { border-left: 4px solid ${COLORS.darkAccent}; background: rgba(96, 165, 250, 0.08); padding: 16px 20px; margin: 20px 0; color: ${COLORS.darkTextTertiary}; border-radius: 0 8px 8px 0; }
+      .wechat-content blockquote { border-left: 4px solid ${COLORS.darkAccent}; background: rgba(96, 165, 250, 0.15); padding: 16px 20px; margin: 20px 0; color: #CBD5E1; border-radius: 0 8px 8px 0; }
       .wechat-content code { background: ${COLORS.darkBgSecondary}; padding: 2px 6px; border-radius: 4px; color: ${COLORS.darkAccent}; font-family: ${FONTS.code}; font-size: 14px; border: 1px solid ${COLORS.borderDark}; }
       .wechat-content pre { background: ${COLORS.darkBgSecondary}; padding: 16px; border-radius: 8px; margin: 20px 0; overflow: auto; border: 1px solid ${COLORS.borderDark}; color: ${COLORS.darkTextPrimary}; font-family: ${FONTS.code}; font-size: 13px; line-height: 1.6; }
       .wechat-content pre code { background: transparent; border: none; padding: 0; color: inherit; }
@@ -154,8 +154,8 @@ export const WECHAT_STYLES: Record<string, ThemeDefinition> = {
                 preBg: COLORS.darkBgSecondary,
                 preColor: COLORS.darkTextPrimary,
                 borderColor: COLORS.borderDark,
-                quoteBg: 'rgba(96, 165, 250, 0.08)',
-                quoteColor: COLORS.darkTextTertiary,
+                quoteBg: 'rgba(96, 165, 250, 0.15)',
+                quoteColor: '#CBD5E1',
                 linkColor: COLORS.darkAccent,
                 imgOpacity: '0.9'
             }),

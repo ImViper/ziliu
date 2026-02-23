@@ -2,12 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { db } from '@/lib/db';
-import { users, redeemCodes } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
+import { users, redeemCodes, type RedeemCode } from '@/lib/db/schema';
+import { eq, desc } from 'drizzle-orm';
 import { createId } from '@paralleldrive/cuid2';
 
 // 管理员邮箱列表（从环境变量获取）
-const ADMIN_EMAILS = process.env.ADMIN_EMAILS?.split(',').map(email => email.trim()) || [];
+const ADMIN_EMAILS = process.env.ADMIN_EMAILS?.split(',').map((email: any) => email.trim()) || [];
 
 // 生成兑换码
 function generateRedeemCode(): string {
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
       }, { status: 403 });
     }
 
-    const body = await request.json();
+    const body: any = await request.json();
     const { type, count = 1, note = '' } = body;
 
     if (!type || !['monthly', 'yearly'].includes(type)) {
@@ -125,14 +125,14 @@ export async function GET(request: NextRequest) {
     // 获取兑换码列表
     const codes = await db.query.redeemCodes.findMany({
       where: whereCondition,
-      orderBy: (codes, { desc }) => [desc(codes.createdAt)],
+      orderBy: [desc(redeemCodes.createdAt)],
       limit,
       offset: (page - 1) * limit,
     });
 
     // 手动关联用户信息
     const codesWithUsers = await Promise.all(
-      codes.map(async (code) => {
+      codes.map(async (code: RedeemCode) => {
         if (code.usedBy) {
           const user = await db.query.users.findFirst({
             where: eq(users.id, code.usedBy),

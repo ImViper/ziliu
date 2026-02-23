@@ -44,7 +44,7 @@ export default function EditPresetPage() {
     try {
       setInitialLoading(true);
       const response = await fetch(`/api/presets/${presetId}`);
-      const data = await response.json();
+      const data: any = await response.json();
 
       if (data.success) {
         const preset = data.data;
@@ -87,7 +87,7 @@ export default function EditPresetPage() {
         body: JSON.stringify(form),
       });
 
-      const data = await response.json();
+      const data: any = await response.json();
 
       if (data.success) {
         router.push('/dashboard/presets');

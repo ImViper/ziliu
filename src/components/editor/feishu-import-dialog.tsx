@@ -68,7 +68,7 @@ export function FeishuImportDialog({
         body: JSON.stringify({ content }),
       });
 
-      const data = await response.json();
+      const data: any = await response.json();
 
       if (data.success) {
         // 更新图片处理进度

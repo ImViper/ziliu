@@ -54,7 +54,7 @@ export default function R2StorageConfig() {
     try {
       setLoading(true);
       const response = await fetch('/api/user/r2-config');
-      const result = await response.json();
+      const result: any = await response.json();
 
       if (result.success) {
         setConfig(result.data);
@@ -90,7 +90,7 @@ export default function R2StorageConfig() {
         }),
       });
 
-      const result = await response.json();
+      const result: any = await response.json();
 
       if (result.success) {
         setMessage({ type: 'success', text: 'R2连接测试成功！' });
@@ -122,7 +122,7 @@ export default function R2StorageConfig() {
         }),
       });
 
-      const result = await response.json();
+      const result: any = await response.json();
 
       if (result.success) {
         setMessage({ type: 'success', text: result.message || '配置保存成功' });

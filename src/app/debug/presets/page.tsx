@@ -47,7 +47,7 @@ export default function PresetsDebugPage() {
     try {
       setLoading(true);
       const response = await fetch('/api/presets/debug');
-      const data = await response.json();
+      const data: any = await response.json();
 
       if (data.success) {
         setDebugData(data.data);
@@ -76,7 +76,7 @@ export default function PresetsDebugPage() {
         }),
       });
 
-      const data = await response.json();
+      const data: any = await response.json();
 
       if (data.success) {
         // 重新获取数据

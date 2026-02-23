@@ -255,7 +255,7 @@ async function generateShortTextCover(input: {
       throw new Error(`OpenRouter API error: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data: any = await response.json();
     const images = data.choices?.[0]?.message?.images;
     const imageUrl = images?.[0]?.image_url?.url;
 
@@ -308,7 +308,7 @@ function buildShortTextCoverPrompt(suggestion: string, title?: string, content?:
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body: any = await request.json();
     const { platform, articleId, title, content } = generateSchema.parse(body);
 
     const resolved = await resolveSource({ articleId, title, content });
@@ -441,7 +441,7 @@ ${imagesHint}
       throw new Error(`OpenRouter API error: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data: any = await response.json();
     const raw = data.choices?.[0]?.message?.content?.trim();
     if (!raw) throw new Error('AI返回空内容');
 
@@ -461,7 +461,7 @@ function normalizeOutput(
 ): { title?: string; content: string; tags: string[] } {
   const limits = OUTPUT_LIMITS[platform];
   const tags = (output.tags || [])
-    .map(t => String(t || '').trim())
+    .map((t: any) => String(t || '').trim())
     .filter(Boolean)
     .slice(0, limits.tagMax || 0);
 
@@ -545,7 +545,7 @@ function formatShortTextContent(platform: ShortTextPlatform, content: string): s
   const formatted = String(content || '')
     .replace(/\r\n/g, '\n')
     .split('\n')
-    .map(line => line.trim())
+    .map((line: any) => line.trim())
     .join('\n')
     .replace(/\n{3,}/g, '\n\n')
     .trim();

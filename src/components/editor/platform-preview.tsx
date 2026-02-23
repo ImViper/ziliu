@@ -228,7 +228,7 @@ export function PlatformPreview({ title, content, articleId }: PlatformPreviewPr
       });
 
       if (response.ok) {
-        const data = await response.json();
+        const data: any = await response.json();
         if (data.success) {
           return data.data.id;
         }
@@ -288,7 +288,7 @@ export function PlatformPreview({ title, content, articleId }: PlatformPreviewPr
         }),
       });
 
-      const data = await response.json();
+      const data: any = await response.json();
       if (!data?.success) {
         console.error('短图文生成失败:', data?.error);
         alert(data?.error || '生成失败，请重试');
@@ -362,7 +362,7 @@ export function PlatformPreview({ title, content, articleId }: PlatformPreviewPr
       if (!response.ok) {
         return null;
       }
-      const data = await response.json();
+      const data: any = await response.json();
       if (!data?.success) return null;
       const loaded: ShortTextGenerated = {
         title: data.data?.title,
@@ -417,7 +417,7 @@ export function PlatformPreview({ title, content, articleId }: PlatformPreviewPr
       if (!options?.forceRegenerate) {
         const loadResponse = await fetch(`/api/video/content?articleId=${articleId}&platform=${platform}`);
         if (loadResponse.ok) {
-          const loadData = await loadResponse.json();
+          const loadData: any = await loadResponse.json();
           if (loadData.success) {
             if (shouldUpdateUI) {
               setVideoMetadata({
@@ -464,8 +464,8 @@ export function PlatformPreview({ title, content, articleId }: PlatformPreviewPr
         })
       ]);
 
-      const speechData = await speechResponse.json();
-      const metadataData = await metadataResponse.json();
+      const speechData = await speechResponse.json() as any;
+      const metadataData = await metadataResponse.json() as any;
 
       if (speechData.success && metadataData.success) {
         const videoData = {
@@ -572,7 +572,7 @@ export function PlatformPreview({ title, content, articleId }: PlatformPreviewPr
       if (!articleId) return;
       try {
         const res = await fetch(`/api/articles/${articleId}`);
-        const data = await res.json();
+        const data = await res.json() as any;
         if (data?.success && data.data?.style) {
           setSelectedStyle(data.data.style);
         }
@@ -677,7 +677,7 @@ export function PlatformPreview({ title, content, articleId }: PlatformPreviewPr
         }),
       });
 
-      const data = await response.json();
+      const data: any = await response.json();
       if (data.success) {
         // 微信公众号预览：用 inlineHtml 渲染,保证预览与最终粘贴到公众号编辑器的效果一致
         // Note: 'wechat' 已在前面单独处理（本地实时转换），这里只需判断 'wechat_xiaolushu'
@@ -2511,7 +2511,7 @@ function SmartPublishBar({ platform, content, title }: { platform: Platform; con
           content: content?.slice(0, 500) || '',
         }),
       });
-      const data = await response.json();
+      const data: any = await response.json();
       if (data?.success && data.data?.titles) {
         setAbTitles(data.data.titles);
       } else {

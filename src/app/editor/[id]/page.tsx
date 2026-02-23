@@ -33,7 +33,7 @@ export default function EditArticlePage() {
       setError(null);
 
       const response = await fetch(`/api/articles/${id}`);
-      const data = await response.json();
+      const data: any = await response.json();
 
       if (data.success) {
         setArticle(data.data);
@@ -82,7 +82,7 @@ export default function EditArticlePage() {
         }),
       });
 
-      const data = await response.json();
+      const data: any = await response.json();
       if (data.success) {
         // 更新本地状态
         setArticle(data.data);

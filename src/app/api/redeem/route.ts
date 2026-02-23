@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
       }, { status: 401 });
     }
 
-    const body = await request.json();
+    const body: any = await request.json();
     const { code } = body;
 
     if (!code?.trim()) {
@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
     newExpiredAt.setMonth(newExpiredAt.getMonth() + redeemCode.duration);
 
     // 开启事务
-    await db.transaction(async (tx) => {
+    await db.transaction(async (tx: any) => {
       // 更新用户订阅信息
       await tx.update(users)
         .set({

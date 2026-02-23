@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { db } from '@/lib/db';
-import { publishPresets, users } from '@/lib/db/schema';
-import { eq, and } from 'drizzle-orm';
+import { publishPresets, users, type PublishPreset } from '@/lib/db/schema';
+import { eq, and, desc } from 'drizzle-orm';
 
 // 调试预设数据的API端点
 export async function GET(request: NextRequest) {
@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
     // 获取用户的所有预设
     const presets = await db.query.publishPresets.findMany({
       where: eq(publishPresets.userId, user.id),
-      orderBy: (presets, { desc }) => [desc(presets.updatedAt)],
+      orderBy: [desc(publishPresets.updatedAt)],
     });
 
     // 分析预设数据
@@ -41,7 +41,7 @@ export async function GET(request: NextRequest) {
       presetsWithoutPlatform: 0,
       presetsWithContent: 0,
       zhihuPresets: [] as any[],
-      allPresets: presets.map(preset => ({
+      allPresets: presets.map((preset: PublishPreset) => ({
         id: preset.id,
         name: preset.name,
         platform: preset.platform,
@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
     };
 
     // 统计平台分布
-    presets.forEach(preset => {
+    presets.forEach((preset: PublishPreset) => {
       const platform = preset.platform || 'unknown';
       analysis.platformDistribution[platform] = (analysis.platformDistribution[platform] || 0) + 1;
       
@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
       }, { status: 404 });
     }
 
-    const body = await request.json();
+    const body: any = await request.json();
     const { presetId, newPlatform } = body;
 
     if (!presetId || !newPlatform) {

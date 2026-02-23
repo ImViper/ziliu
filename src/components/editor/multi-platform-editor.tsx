@@ -202,7 +202,7 @@ export function MultiPlatformEditor({
           body: JSON.stringify({ content: htmlContent }),
         });
 
-        const data = await response.json();
+        const data: any = await response.json();
 
         if (data.success) {
           // 直接替换编辑器内容
@@ -269,7 +269,7 @@ export function MultiPlatformEditor({
         body: JSON.stringify({ markdown: content }),
       });
 
-      const data = await response.json();
+      const data: any = await response.json();
 
       if (!response.ok || !data.success) {
         throw new Error(data.error || '图片批量转换失败');

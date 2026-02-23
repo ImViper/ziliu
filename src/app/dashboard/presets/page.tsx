@@ -40,7 +40,7 @@ export default function PresetsPage() {
     try {
       setLoading(true);
       const response = await fetch('/api/presets');
-      const data = await response.json();
+      const data: any = await response.json();
 
       if (data.success) {
         setPresets(data.data);
@@ -60,7 +60,7 @@ export default function PresetsPage() {
       const response = await fetch(`/api/presets/${presetId}/set-default`, {
         method: 'POST',
       });
-      const data = await response.json();
+      const data: any = await response.json();
 
       if (data.success) {
         // 更新本地状态
@@ -86,7 +86,7 @@ export default function PresetsPage() {
       const response = await fetch(`/api/presets/${presetId}`, {
         method: 'DELETE',
       });
-      const data = await response.json();
+      const data: any = await response.json();
 
       if (data.success) {
         setPresets(prev => prev.filter(preset => preset.id !== presetId));

@@ -34,7 +34,7 @@ export default function ApplyPresetPage() {
   const fetchPreset = async () => {
     try {
       const response = await fetch(`/api/presets/${params.id}`);
-      const data = await response.json();
+      const data: any = await response.json();
 
       if (data.success) {
         setPreset(data.data);

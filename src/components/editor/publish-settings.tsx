@@ -136,7 +136,7 @@ export function PublishSettings({ platform, onApplySettings }: PublishSettingsPr
     try {
       // 添加平台过滤参数
       const response = await fetch(`/api/presets?platform=${platform}`);
-      const data = await response.json();
+      const data: any = await response.json();
 
       if (data.success) {
         // 数据已经是正确的格式，直接使用
@@ -291,7 +291,7 @@ export function PublishSettings({ platform, onApplySettings }: PublishSettingsPr
                                   const response = await fetch(`/api/presets/${setting.id}`, {
                                     method: 'DELETE',
                                   });
-                                  const data = await response.json();
+                                  const data: any = await response.json();
 
                                   if (data.success) {
                                     // 重新加载设置列表
@@ -695,7 +695,7 @@ export function PublishSettings({ platform, onApplySettings }: PublishSettingsPr
                         }),
                       });
 
-                      const data = await response.json();
+                      const data: any = await response.json();
 
                       if (data.success) {
                         // 重新加载设置列表

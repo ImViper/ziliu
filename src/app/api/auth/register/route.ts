@@ -3,7 +3,7 @@ import { registerUser } from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body: any = await request.json();
     const user = await registerUser(body);
     
     return NextResponse.json({

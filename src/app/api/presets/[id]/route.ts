@@ -102,7 +102,7 @@ export async function PUT(
       }, { status: 404 });
     }
 
-    const body = await request.json();
+    const body: any = await request.json();
     const {
       name,
       authorName,

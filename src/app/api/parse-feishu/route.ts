@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { content } = await request.json();
+    const { content } = await request.json() as any;
 
     if (!content) {
       return NextResponse.json(
@@ -297,7 +297,7 @@ function convertHtmlToMarkdownWithTurndown(html: string): string {
       
       rows.forEach((row, rowIndex) => {
         const cells = Array.from(row.cells);
-        const cellContents = cells.map(cell => {
+        const cellContents = cells.map((cell: any) => {
           // 获取单元格文本内容，清理换行
           let text = cell.textContent?.trim() || '';
           text = text.replace(/\n/g, ' ').replace(/\|/g, '\\|');

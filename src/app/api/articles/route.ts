@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
       return setCorsHeaders(response, request);
     }
 
-    const body = await request.json();
+    const body: any = await request.json();
     const { title, content, status, style } = createArticleSchema.parse(body);
 
     // 计算字数和阅读时间
@@ -140,7 +140,7 @@ export async function GET(request: NextRequest) {
     await ensureArticleStyleColumn();
     const userArticles = await db.query.articles.findMany({
       where: whereCondition,
-      orderBy: (articles, { desc }) => [desc(articles.updatedAt)],
+      orderBy: [desc(articles.updatedAt)],
       limit,
       offset: (page - 1) * limit,
     });

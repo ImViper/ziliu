@@ -166,7 +166,7 @@ function parseJsonBestEffort(raw: string): unknown {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body: any = await request.json();
     const { platform, title, content } = requestSchema.parse(body);
 
     const apiKey = process.env.OPENROUTER_API_KEY;
@@ -221,7 +221,7 @@ ${contentSnippet ? `正文摘要（仅供理解主题，不要照搬）：\n${co
       throw new Error(`OpenRouter API error: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data: any = await response.json();
     const raw = data.choices?.[0]?.message?.content?.trim();
     if (!raw) throw new Error('AI 返回空内容');
 

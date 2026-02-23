@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
       }, { status: 401 });
     }
 
-    const body = await request.json();
+    const body: any = await request.json();
     const { title, content, platform, settings } = publishSchema.parse(body);
 
     // 应用设置到内容

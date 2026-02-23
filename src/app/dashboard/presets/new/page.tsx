@@ -53,7 +53,7 @@ export default function NewPresetPage() {
         body: JSON.stringify(form),
       });
 
-      const data = await response.json();
+      const data: any = await response.json();
 
       if (data.success) {
         router.push('/dashboard/presets');

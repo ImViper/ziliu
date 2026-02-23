@@ -12,7 +12,7 @@ const convertSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body: any = await request.json();
     const { content, platform, style, mode } = convertSchema.parse(body);
 
     // 根据平台使用不同的转换逻辑（zsxq 有独立的 CSS 白名单限制）

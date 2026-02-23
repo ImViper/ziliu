@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ success: false, error: '未登录' }, { status: 401 });
         }
 
-        const body = await request.json();
+        const body: any = await request.json();
         const data = contentSchema.parse(body);
 
         const existingContent = await db.query.shortTextContents.findFirst({

@@ -46,7 +46,7 @@ export default function AdminRedeemCodesPage() {
     try {
       setIsLoading(true);
       const response = await fetch('/api/admin/redeem-codes');
-      const data = await response.json();
+      const data: any = await response.json();
       
       if (data.success) {
         setCodes(data.data.codes);
@@ -76,7 +76,7 @@ export default function AdminRedeemCodesPage() {
         }),
       });
 
-      const data = await response.json();
+      const data: any = await response.json();
       
       if (data.success) {
         alert(data.message);

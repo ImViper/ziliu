@@ -95,7 +95,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const body = await request.json();
+    const body: any = await request.json();
     const { enabled, accountId, accessKeyId, secretAccessKey, bucketName, publicUrl } = body;
 
     // 验证必填字段
@@ -161,7 +161,7 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const body = await request.json();
+    const body: any = await request.json();
     const { accountId, accessKeyId, secretAccessKey, bucketName, publicUrl } = body;
 
     if (!accountId || !accessKeyId || !secretAccessKey || !bucketName) {

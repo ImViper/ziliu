@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const body = await request.json();
+    const body: any = await request.json();
     const { days = DEFAULT_CLEANUP_DAYS, dryRun = true } = body;
 
     // 计算截止日期

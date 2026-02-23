@@ -29,7 +29,7 @@ export default function SignUpPage() {
         body: JSON.stringify({ name, email, password }),
       });
 
-      const data = await response.json();
+      const data: any = await response.json();
 
       if (data.success) {
         router.push('/auth/signin?message=注册成功，请登录');

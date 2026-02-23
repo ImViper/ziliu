@@ -29,7 +29,7 @@ export default function ExtensionPage() {
   useEffect(() => {
     fetch('/extension-latest.json')
       .then((r) => r.ok ? r.json() : null)
-      .then((data) => setLatest(data))
+      .then((data: any) => setLatest(data))
       .catch(() => setLatest(null));
   }, []);
 

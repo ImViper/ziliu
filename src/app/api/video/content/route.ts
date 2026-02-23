@@ -98,7 +98,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: '未登录' }, { status: 401 });
     }
 
-    const body = await request.json();
+    const body: any = await request.json();
     const validatedData = saveVideoContentSchema.parse(body);
 
     // 检查是否已存在，如果存在则更新，否则创建

@@ -61,7 +61,7 @@ export default function DashboardPage() {
     try {
       setLoading(true);
       const response = await fetch(`/api/articles?page=${page}&limit=${articlesPerPage}`);
-      const data = await response.json();
+      const data: any = await response.json();
 
       if (data.success) {
         setArticles(data.data.articles);

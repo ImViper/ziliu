@@ -16,7 +16,7 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const body = await request.json();
+    const body: any = await request.json();
     const { name } = body;
 
     // 验证必填字段

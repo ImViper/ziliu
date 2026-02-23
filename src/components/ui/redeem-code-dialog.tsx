@@ -40,7 +40,7 @@ export function RedeemCodeDialog({ isOpen, onClose, onSuccess }: RedeemCodeDialo
         }),
       });
 
-      const data = await response.json();
+      const data: any = await response.json();
 
       if (data.success) {
         onSuccess(data);

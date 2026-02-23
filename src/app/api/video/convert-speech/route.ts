@@ -79,7 +79,7 @@ const PLATFORM_PROMPTS = {
 
 export async function POST(request: NextRequest) {
   try {
-    const { content, platform, title } = await request.json();
+    const { content, platform, title } = await request.json() as any;
     
     if (!content || !platform) {
       return Response.json({
@@ -159,7 +159,7 @@ ${content}
       throw new Error(`OpenRouter API error: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data: any = await response.json();
     const speechScript = data.choices[0]?.message?.content?.trim();
 
     if (!speechScript) {
@@ -223,7 +223,7 @@ function fallbackConversion(content: string, platform: string, title?: string): 
 function extractKeyPoints(content: string, max: number): string[] {
   const sentences = content
     .split(/[。！？.!?]/)
-    .map(s => s.trim())
+    .map((s: any) => s.trim())
     .filter(s => s.length > 12);
   if (sentences.length === 0) return [];
   return sentences.slice(0, max);

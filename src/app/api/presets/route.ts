@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { db } from '@/lib/db';
-import { publishPresets, users } from '@/lib/db/schema';
-import { eq, and } from 'drizzle-orm';
+import { publishPresets, users, type PublishPreset } from '@/lib/db/schema';
+import { eq, and, desc } from 'drizzle-orm';
 import { createId } from '@paralleldrive/cuid2';
 import { Platform } from '@/types/platform-settings';
 
@@ -45,11 +45,11 @@ export async function GET(request: NextRequest) {
     // 获取用户的预设列表
     const presets = await db.query.publishPresets.findMany({
       where: whereCondition,
-      orderBy: (presets, { desc }) => [desc(presets.isDefault), desc(presets.updatedAt)],
+      orderBy: [desc(publishPresets.isDefault), desc(publishPresets.updatedAt)],
     });
 
     // 解析平台配置JSON
-    const presetsWithParsedData = presets.map(preset => ({
+    const presetsWithParsedData = presets.map((preset: PublishPreset) => ({
       ...preset,
       platformConfig: preset.platformConfig ? JSON.parse(preset.platformConfig) : null
     }));
@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
       }, { status: 404 });
     }
 
-    const body = await request.json();
+    const body: any = await request.json();
     const {
       name,
       platform = 'wechat',

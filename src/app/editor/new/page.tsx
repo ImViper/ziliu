@@ -32,7 +32,7 @@ export default function NewEditorPage() {
         }),
       });
 
-      const data = await response.json();
+      const data: any = await response.json();
       if (data.success) {
         // 保存成功，更新使用统计并跳转到编辑页面
         console.log('文章保存成功:', data.data);

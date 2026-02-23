@@ -41,7 +41,7 @@ export default function ProfileSettings() {
         body: JSON.stringify({ name: name.trim() }),
       });
 
-      const result = await response.json();
+      const result: any = await response.json();
 
       if (result.success) {
         // 更新session - 触发JWT callback重新获取用户信息
