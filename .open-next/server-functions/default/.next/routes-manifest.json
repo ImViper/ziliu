@@ -74,6 +74,14 @@
         "nxtPid": "nxtPid"
       },
       "namedRegex": "^/editor/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/preview/[id]",
+      "regex": "^/preview/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/preview/(?<nxtPid>[^/]+?)(?:/)?$"
     }
   ],
   "staticRoutes": [

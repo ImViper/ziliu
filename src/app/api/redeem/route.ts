@@ -71,26 +71,23 @@ export async function POST(request: NextRequest) {
     // 根据兑换码类型添加时长
     newExpiredAt.setMonth(newExpiredAt.getMonth() + redeemCode.duration);
 
-    // 开启事务
-    await db.transaction(async (tx: any) => {
-      // 更新用户订阅信息
-      await tx.update(users)
-        .set({
-          plan: 'pro',
-          planExpiredAt: newExpiredAt,
-          updatedAt: now,
-        })
-        .where(eq(users.id, user.id));
+    // 更新用户订阅信息
+    await db.update(users)
+      .set({
+        plan: 'pro',
+        planExpiredAt: newExpiredAt,
+        updatedAt: now,
+      })
+      .where(eq(users.id, user.id));
 
-      // 标记兑换码为已使用
-      await tx.update(redeemCodes)
-        .set({
-          isUsed: true,
-          usedBy: user.id,
-          usedAt: now,
-        })
-        .where(eq(redeemCodes.id, redeemCode.id));
-    });
+    // 标记兑换码为已使用
+    await db.update(redeemCodes)
+      .set({
+        isUsed: true,
+        usedBy: user.id,
+        usedAt: now,
+      })
+      .where(eq(redeemCodes.id, redeemCode.id));
 
     return NextResponse.json({
       success: true,
